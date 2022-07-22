@@ -1,7 +1,8 @@
-import _config from '../sanity.config'
-import {Studio} from 'sanity'
-import {useEffect, useState} from 'react'
 import Head from 'next/head'
+import {useEffect, useState} from 'react'
+import {Studio} from 'sanity'
+
+import _config from '../sanity.config'
 
 export default function IndexPage() {
   const [config, setConfig] = useState(_config)
