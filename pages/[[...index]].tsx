@@ -4,14 +4,14 @@ import {Studio} from 'sanity'
 
 import _config from '../sanity.config'
 
-const themeUrl = 'https://themer.creativecody.dev/api/hues?preset=dew&min=1'
-
 export default function IndexPage() {
   const [config, setConfig] = useState(_config)
 
   useEffect(
     () =>
-      void import(/* webpackIgnore: true */ themeUrl).then(({theme}) =>
+      void import(
+        /* webpackIgnore: true */ 'https://themer.creativecody.dev/api/hues?preset=dew&min=1'
+      ).then(({theme}) =>
         setConfig((config) => ({...config, theme}))
       ),
     []
@@ -40,7 +40,10 @@ export default function IndexPage() {
           media="(prefers-color-scheme: dark)"
         />
         {/* Speed up the theme loading significantly */}
-        <link rel="modulepreload" href={themeUrl} />
+        <link
+          rel="modulepreload"
+          href={'https://themer.creativecody.dev/api/hues?preset=dew&min=1'}
+        />
       </Head>
     </>
   )
