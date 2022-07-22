@@ -1,10 +1,18 @@
 import _config from '../sanity.config'
 import {Studio} from 'sanity'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import Head from 'next/head'
 
 export default function IndexPage() {
   const [config, setConfig] = useState(_config)
+
+  useEffect(
+    () =>
+      void import(
+        /* webpackIgnore: true */ 'https://themer.creativecody.dev/api/hues?preset=dew&min=1'
+      ).then(({theme}) => setConfig((config) => ({...config, theme}))),
+    []
+  )
 
   return (
     <>
@@ -27,6 +35,8 @@ export default function IndexPage() {
           content={config.theme.color.dark.default.base.bg}
           media="(prefers-color-scheme: dark)"
         />
+        {/* Speed up the theme loading significantly */}
+        <link rel="modulepreload" href={'https://themer.creativecody.dev/api/hues?preset=dew&min=1'} />
       </Head>
       <Studio config={config} />
     </>
